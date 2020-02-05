@@ -79,6 +79,7 @@ void main(void) {
     adcSetup();
     analogInSel(11);
     adcFoscSel(1);
+    timerSetup();
     while(1){
         if (ADCON0bits.GO_DONE == 0){
             ADCON0bits.GO_DONE = 1;
@@ -121,6 +122,18 @@ void intEnable(void){
     INTCONbits.PEIE = 1;
     PIE1bits.ADIE = 1;
     IOCB = 0x02;
+}
+
+void timerSetup(void){
+    OPTION_REGbits.INTEDG = 1;
+    OPTION_REGbits.T0SE = 0;
+    OPTION_REGbits.PSA = 0;
+    OPTION_REGbits.PS2 = 1;
+    OPTION_REGbits.PS1 = 1;
+    OPTION_REGbits.PS0 = 0;
+    TMR0 = 0xB1;
+    INTCONbits.T0IE = 1;
+    INTCONbits.T0IF = 0;
 }
 
 unsigned char lookup(unsigned char num){
