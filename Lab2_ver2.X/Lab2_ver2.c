@@ -29,7 +29,8 @@
 
 #include <xc.h>
 #include <stdint.h>
-//#include "lib_osccon.h"
+#include "lib_osccon.h"
+#include "lib_adc.h"
 
 int res = 0;
 int res2 = 0;
@@ -52,6 +53,13 @@ void __interrupt() isr(void){
 }
 
 void main(void) {
+    setup();
+    intEnable();
+    oscInt(1);
+    adcSetup();
+    analogInSel(11);
+    adcFoscSel(1);
+    
     return;
 }
 
@@ -84,26 +92,4 @@ void intEnable(void){
     IOCB = 0x02;
 }
 
-void set_adc(void){
-    ADCON0bits.ADCS1 = 0;
-    ADCON0bits.ADCS0 = 1;
-    ADCON0bits.CHS3 = 1;
-    ADCON0bits.CHS2 = 0;
-    ADCON0bits.CHS1 = 1;
-    ADCON0bits.CHS0 = 1;
-    ADCON0bits.ADON = 1;
-    ADCON1bits.ADFM = 0;
-    ADCON1bits.VCFG1 = 0;
-    ADCON1bits.VCFG0 = 0;
-}
-
-void osccon(void){
-    OSCCONbits.IRCF2 = 1;
-    OSCCONbits.IRCF1 = 1;
-    OSCCONbits.IRCF0 = 0;
-    OSCCONbits.OSTS = 0;
-    OSCCONbits.HTS = 1;
-    OSCCONbits.LTS = 0;
-    OSCCONbits.SCS = 1;
-}
 

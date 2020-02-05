@@ -10,7 +10,7 @@
 
 unsigned char oscInt(unsigned char osc) {
     switch(osc){
-        case 1:     // Oscilador de 8 MHz
+        case 0:     // Oscilador de 8 MHz
             OSCCONbits.IRCF2 = 1;
             OSCCONbits.IRCF1 = 1;
             OSCCONbits.IRCF0 = 1;
@@ -19,7 +19,7 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.LTS = 0;
             OSCCONbits.SCS = 1;
             break;
-        case 2:     // Oscilador de 4 MHz
+        case 1:     // Oscilador de 4 MHz
             OSCCONbits.IRCF2 = 1;
             OSCCONbits.IRCF1 = 1;
             OSCCONbits.IRCF0 = 0;
@@ -28,7 +28,7 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.LTS = 0;
             OSCCONbits.SCS = 1;
             break;
-        case 3:     // Oscilador de 2 MHz
+        case 2:     // Oscilador de 2 MHz
             OSCCONbits.IRCF2 = 1;
             OSCCONbits.IRCF1 = 0;
             OSCCONbits.IRCF0 = 1;
@@ -37,7 +37,7 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.LTS = 0;
             OSCCONbits.SCS = 1;
             break;
-        case 4:     // Oscilador de 1 MHz
+        case 3:     // Oscilador de 1 MHz
             OSCCONbits.IRCF2 = 1;
             OSCCONbits.IRCF1 = 0;
             OSCCONbits.IRCF0 = 0;
@@ -46,7 +46,7 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.LTS = 0;
             OSCCONbits.SCS = 1;
             break;
-        case 5:     // Oscilador de 500 kHz
+        case 4:     // Oscilador de 500 kHz
             OSCCONbits.IRCF2 = 0;
             OSCCONbits.IRCF1 = 1;
             OSCCONbits.IRCF0 = 1;
@@ -55,7 +55,7 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.LTS = 0;
             OSCCONbits.SCS = 1;
             break;
-        case 6:     // Oscilador de 250 kHz
+        case 5:     // Oscilador de 250 kHz
             OSCCONbits.IRCF2 = 0;
             OSCCONbits.IRCF1 = 1;
             OSCCONbits.IRCF0 = 0;
@@ -64,7 +64,7 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.LTS = 0;
             OSCCONbits.SCS = 1;
             break;
-        case 7:     // Oscilador de 125 kHz
+        case 6:     // Oscilador de 125 kHz
             OSCCONbits.IRCF2 = 0;
             OSCCONbits.IRCF1 = 0;
             OSCCONbits.IRCF0 = 1;
@@ -73,7 +73,7 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.LTS = 0;
             OSCCONbits.SCS = 1;
             break;
-        case 8:
+        case 7:     // Oscilador de 31 kHz
             OSCCONbits.IRCF2 = 0;
             OSCCONbits.IRCF1 = 0;
             OSCCONbits.IRCF0 = 0;
