@@ -8,8 +8,8 @@
 #include <xc.h>
 #include "lib_osccon.h"
 
-unsigned char oscInt(unsigned char osc) {
-    switch(osc){
+unsigned char oscInt(unsigned char freq) {
+    switch(freq){
         case 0:     // Oscilador de 8 MHz
             OSCCONbits.IRCF2 = 1;
             OSCCONbits.IRCF1 = 1;
@@ -83,5 +83,5 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.SCS = 1;
             break;
     }
-    return(osc);
+    return(freq);
 }
