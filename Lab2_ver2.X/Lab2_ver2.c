@@ -49,6 +49,14 @@ unsigned char lookup(unsigned char num);
 void delay_ms(void);
 
 void __interrupt() isr(void){
+    if (INTCONbits.T0IF == 1){
+        if (PORTCbits.RC6 == 1){
+            PORTCbits.RC6 = 0;
+        }
+        else if (PORTCbits.RC6 == 0){
+            PORTCbits.RC6 = 1;
+        }
+    }
     if (PORTBbits.RB0 == 1){
         di();
         intB0 = 1;
