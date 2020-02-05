@@ -49,6 +49,17 @@ unsigned char lookup(unsigned char num);
 void delay_ms(void);
 
 void __interrupt() isr(void){
+    if (PIR1bits.ADIF == 1){
+        di();
+        res = ADRESH & 0b00001111;
+        PORTD = lookup(res);
+        PORTCbits.RC6 = 0;
+        res2 = ADRESH >> 4;
+        PORTD = lookup(res2);
+        PORTCbits.RC6 = 1;
+        PIR1bits.ADIF = 0;
+        
+    }
 
 }
 
@@ -59,7 +70,11 @@ void main(void) {
     adcSetup();
     analogInSel(11);
     adcFoscSel(1);
-    
+    while(1){
+        if (ADCON0bits.GO_DONE == 0){
+            ADCON0bits.GO_DONE = 1;
+        }
+    }
     return;
 }
 
@@ -92,4 +107,25 @@ void intEnable(void){
     IOCB = 0x02;
 }
 
+unsigned char lookup(unsigned char num){
+    switch(num){
+        case 0b00000000: num = 0xC0; break;
+        case 0b00000001: num = 0xF9; break;
+        case 0b00000010: num = 0xA4; break;
+        case 0b00000011: num = 0xB0; break;
+        case 0b00000100: num = 0x99; break;
+        case 0b00000101: num = 0x92; break;
+        case 0b00000110: num = 0x82; break;
+        case 0b00000111: num = 0xF8; break;
+        case 0b00001000: num = 0x80; break;
+        case 0b00001001: num = 0x90; break;
+        case 0b00001010: num = 0x88; break;
+        case 0b00001011: num = 0x83; break;
+        case 0b00001100: num = 0xC6; break;
+        case 0b00001101: num = 0xA1; break;
+        case 0b00001110: num = 0x86; break;
+        case 0b00001111: num = 0x8E; break;
+    }
+    return(num);
+}
 
