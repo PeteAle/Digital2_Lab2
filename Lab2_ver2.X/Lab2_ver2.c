@@ -49,6 +49,16 @@ unsigned char lookup(unsigned char num);
 void delay_ms(void);
 
 void __interrupt() isr(void){
+    if (PORTBbits.RB0 == 1){
+        di();
+        intB0 = 1;
+        if (PORTBbits.RB0 == 0 && intB0 == 1){
+            PORTA -= 1;
+            intB0 = 0;
+            INTCONbits.INTF = 0;
+            ei();
+        }
+    }
     if (PIR1bits.ADIF == 1){
         di();
         res = ADRESH & 0b00001111;
@@ -58,9 +68,8 @@ void __interrupt() isr(void){
         PORTD = lookup(res2);
         PORTCbits.RC6 = 1;
         PIR1bits.ADIF = 0;
-        
+        ei();
     }
-
 }
 
 void main(void) {
@@ -73,6 +82,13 @@ void main(void) {
     while(1){
         if (ADCON0bits.GO_DONE == 0){
             ADCON0bits.GO_DONE = 1;
+        }
+        if (PORTBbits.RB1 == 1){
+            intB1 = 1;
+            if (PORTBbits.RB1 == 0 && intB1 == 1){
+                PORTA += 1;
+                intB1 = 0;
+            }
         }
     }
     return;
