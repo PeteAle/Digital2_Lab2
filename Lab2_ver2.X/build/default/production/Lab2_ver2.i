@@ -2681,11 +2681,9 @@ void __attribute__((picinterrupt(("")))) isr(void){
         (INTCONbits.GIE = 0);
         if (PORTCbits.RC6 == 1){
             PORTCbits.RC6 = 0;
-            delay_ms();
         }
         else if (PORTCbits.RC6 == 0){
             PORTCbits.RC6 = 1;
-            delay_ms();
         }
         (INTCONbits.GIE = 1);
     }

@@ -52,11 +52,9 @@ void __interrupt() isr(void){
         di();
         if (PORTCbits.RC6 == 1){
             PORTCbits.RC6 = 0;
-            delay_ms();
         }
         else if (PORTCbits.RC6 == 0){
             PORTCbits.RC6 = 1;
-            delay_ms();
         }
         ei();
     }
