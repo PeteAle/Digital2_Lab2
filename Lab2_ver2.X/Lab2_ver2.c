@@ -42,11 +42,10 @@ int contador = 0;
 int contador2 = 0;
 int resultado;
 void setup(void);
-void set_adc(void);
-void osccon(void);
 void intEnable(void);
 unsigned char lookup(unsigned char num);
 void delay_ms(void);
+void timerSetup(void);
 
 void __interrupt() isr(void){
     if (INTCONbits.T0IF == 1){
@@ -101,8 +100,9 @@ void main(void) {
                 intB1 = 0;
             }
         }
-        if (PORTA == ADDRESH){
-            
+        if (PORTA == ADRESH){
+            PORTCbits.RC0 = 1;
+            delay_ms();
         }
     }
     return;
