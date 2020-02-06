@@ -33,3 +33,6 @@
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 
+unsigned char oscInt(unsigned char freq);
+
+#endif

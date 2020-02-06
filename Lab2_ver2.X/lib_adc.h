@@ -32,3 +32,9 @@
 #define	__LIB_ADC_H_
 
 #include <xc.h> // include processor files - each processor file is guarded.  
+
+void adcSetup(void);
+unsigned char analogInSel(unsigned char analogIn);
+unsigned char adcFoscSel(unsigned char fosc);
+
+#endif

@@ -101,6 +101,9 @@ void main(void) {
                 intB1 = 0;
             }
         }
+        if (PORTA == ADDRESH){
+            
+        }
     }
     return;
 }
