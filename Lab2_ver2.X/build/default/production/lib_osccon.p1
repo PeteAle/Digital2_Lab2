@@ -249,14 +249,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f887.h: 3546: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
 "11 lib_osccon.c
-[; ;lib_osccon.c: 11: unsigned char oscInt(unsigned char osc) {
+[; ;lib_osccon.c: 11: unsigned char oscInt(unsigned char freq) {
 [v _oscInt `(uc ~T0 @X0 1 ef1`uc ]
 {
 [e :U _oscInt ]
-[v _osc `uc ~T0 @X0 1 r1 ]
+[v _freq `uc ~T0 @X0 1 r1 ]
 [f ]
 "12
-[; ;lib_osccon.c: 12:     switch(osc){
+[; ;lib_osccon.c: 12:     switch(freq){
 [e $U 140  ]
 {
 "13
@@ -480,7 +480,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e $U 139  ]
 [e :U 140 ]
-[e [\ -> _osc `i , $ -> 0 `i 141
+[e [\ -> _freq `i , $ -> 0 `i 141
  , $ -> 1 `i 142
  , $ -> 2 `i 143
  , $ -> 3 `i 144
@@ -491,8 +491,8 @@ Version 4.0 HI-TECH Software Intermediate Code
  139 ]
 [e :U 139 ]
 "86
-[; ;lib_osccon.c: 86:     return(osc);
-[e ) _osc ]
+[; ;lib_osccon.c: 86:     return(freq);
+[e ) _freq ]
 [e $UE 138  ]
 "87
 [; ;lib_osccon.c: 87: }

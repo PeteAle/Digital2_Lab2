@@ -2506,8 +2506,8 @@ unsigned char oscInt(unsigned char freq);
 # 9 "lib_osccon.c" 2
 
 
-unsigned char oscInt(unsigned char osc) {
-    switch(osc){
+unsigned char oscInt(unsigned char freq) {
+    switch(freq){
         case 0:
             OSCCONbits.IRCF2 = 1;
             OSCCONbits.IRCF1 = 1;
@@ -2581,5 +2581,5 @@ unsigned char oscInt(unsigned char osc) {
             OSCCONbits.SCS = 1;
             break;
     }
-    return(osc);
+    return(freq);
 }

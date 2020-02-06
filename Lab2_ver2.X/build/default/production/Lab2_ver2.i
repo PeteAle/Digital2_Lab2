@@ -2681,18 +2681,30 @@ void __attribute__((picinterrupt(("")))) isr(void){
         (INTCONbits.GIE = 0);
         if (PORTCbits.RC6 == 1){
             PORTCbits.RC6 = 0;
+            delay_ms();
         }
         else if (PORTCbits.RC6 == 0){
             PORTCbits.RC6 = 1;
+            delay_ms();
         }
         (INTCONbits.GIE = 1);
     }
-    if (PORTBbits.RB0 == 1){
+    while (PORTBbits.RB0 == 1){
         (INTCONbits.GIE = 0);
         intB0 = 1;
         if (PORTBbits.RB0 == 0 && intB0 == 1){
             PORTA -= 1;
             intB0 = 0;
+            INTCONbits.INTF = 0;
+            (INTCONbits.GIE = 1);
+        }
+    }
+    while (PORTBbits.RB1 == 1){
+        (INTCONbits.GIE = 0);
+        intB1 = 1;
+        if (PORTBbits.RB1 == 0 && intB1 == 1){
+            PORTA += 1;
+            intB1 = 0;
             INTCONbits.INTF = 0;
             (INTCONbits.GIE = 1);
         }
@@ -2719,26 +2731,23 @@ void main(void) {
     adcFoscSel(1);
     timerSetup();
     while(1){
+        PORTCbits.RC6 = 1;
+        PORTCbits.RC6 = 0;
         if (ADCON0bits.GO_DONE == 0){
             ADCON0bits.GO_DONE = 1;
         }
-        if (PORTBbits.RB1 == 1){
-            intB1 = 1;
-            if (PORTBbits.RB1 == 0 && intB1 == 1){
-                PORTA += 1;
-                intB1 = 0;
-            }
-        }
         if (PORTA == ADRESH){
             PORTCbits.RC0 = 1;
-            delay_ms();
+        }
+        else if (PORTA != ADRESH){
+            PORTCbits.RC0 = 0;
         }
     }
     return;
 }
 
 void delay_ms(void){
-    for (i = 0; i <= 25; i ++){
+    for (i = 0; i <= 150; i ++){
         contador += contador;
         for (j = 0; j <= 25; j ++){
             contador2 += contador2;
@@ -2752,7 +2761,7 @@ void setup(void){
     TRISC = 0x00;
     TRISD = 0x00;
     ANSEL = 0x10;
-    ANSELH = 0x00;
+    ANSELH = 0x08;
     PORTA = 0x00;
     PORTB = 0x00;
     PORTC = 0x00;
@@ -2762,7 +2771,6 @@ void setup(void){
 void intEnable(void){
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
-    PIE1bits.ADIE = 1;
     IOCB = 0x02;
 }
 
@@ -2772,8 +2780,8 @@ void timerSetup(void){
     OPTION_REGbits.PSA = 0;
     OPTION_REGbits.PS2 = 1;
     OPTION_REGbits.PS1 = 1;
-    OPTION_REGbits.PS0 = 0;
-    TMR0 = 0xB1;
+    OPTION_REGbits.PS0 = 1;
+    TMR0 = 0x15;
     INTCONbits.T0IE = 1;
     INTCONbits.T0IF = 0;
 }
